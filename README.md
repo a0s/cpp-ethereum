@@ -164,4 +164,25 @@ cmake -DBUNDLE=cudaminer ..
 make -j8
 ```
 
+Ubuntu 16.04 or Newer, OpenCL + CUDA (for NVIDIA cards) git-way
+
+```bash
+sudo apt-get -y install git cmake libleveldb-dev libjsoncpp-dev libjsonrpccpp-dev libboost-all-dev libgmp-dev libreadline-dev libcurl4-gnutls-dev ocl-icd-libopencl1 opencl-headers mesa-common-dev libmicrohttpd-dev build-essential git nvidia-cuda-toolkit ocl-icd-opencl-dev
+
+cd ~
+git clone https://github.com/weidai11/cryptopp
+cd cryptopp
+make libcryptopp.a libcryptopp.so cryptest.exe
+
+cd ~
+git clone https://github.com/Genoil/cpp-ethereum/
+mkdir cpp-ethereum/build
+cd cpp-ethereum/build
+
+# Remove -DCOMPUTE=52 if you have something newer than gtx970
+cmake -DBUNDLE=cudaminer -DCOMPUTE=52 -DCRYPTOPP_INCLUDE_DIR=~/cryptopp -DCRYPTOPP_LIBRARY_RELEASE=~/cryptopp ..
+
+make -j8
+```
+
 You can then find the executable in the ethminer subfolder
